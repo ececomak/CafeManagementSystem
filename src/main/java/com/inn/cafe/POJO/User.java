@@ -10,6 +10,10 @@ import java.io.Serializable;
 
 @NamedQuery(name = "User.getAllUsers", query = "select new com.inn.cafe.wrapper.UserWrapper(u.id, u.name, u.email, u.contactNumber, u.status) from User u where u.role = 'ROLE_USER'")
 
+@NamedQuery(name = "User.updateStatus", query = "update User u set u.status=:status where u.id=:id")
+
+@NamedQuery(name = "User.getAllAdmins", query = "select u.email from User u where u.role = 'ROLE_ADMIN'")
+
 @Entity
 @DynamicUpdate
 @DynamicInsert
