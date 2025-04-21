@@ -73,7 +73,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     public boolean isAdmin() {
         if (claims == null) {
-            log.error("Claims null, rol kontrolü yapılamaz.");
+            log.error("Claims null");
             return false;
         }
         return "ROLE_ADMIN".equalsIgnoreCase((String) claims.get("role"));
@@ -81,7 +81,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     public boolean isUser() {
         if (claims == null) {
-            log.error("Claims null, rol kontrolü yapılamaz.");
+            log.error("Claims null");
             return false;
         }
         return "ROLE_USER".equalsIgnoreCase((String) claims.get("role"));

@@ -2,6 +2,7 @@ package com.inn.cafe.JWT;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -29,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/forgotPassword").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/category/add").hasRole("ADMIN")
                         .requestMatchers("/public/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -36,7 +38,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterAfter(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
